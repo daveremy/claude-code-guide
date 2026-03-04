@@ -206,7 +206,7 @@ cd ~
 git clone https://github.com/daveremy/claude-code-guide.git
 ```
 
-### Starting a New Project with the Guide
+### Starting a New Project
 
 ```bash
 # 1. Create your new project directory
@@ -220,11 +220,21 @@ claude --dangerously-skip-permissions
 Then paste this as your **first prompt** (customize the bracketed parts):
 
 ```
-Read the bootstrapping guide at ~/claude-code-guide/claude-code-guide.md
-and the cheat sheet at ~/claude-code-guide/claude-code-cheatsheet.md
-for workflow and best practices context.
+Read the full guide and cheat sheet in this repo and internalize
+the workflow, best practices, and conventions described:
+https://github.com/daveremy/claude-code-guide
 
-I want to build: [DESCRIBE YOUR PROJECT]
+This is my development workflow — follow it for this entire project.
+Key points:
+- Always plan before coding (plan mode)
+- I will review plans with Codex and Gemini before you implement
+- After implementation, I will run /simplify and do multi-AI code reviews
+- Use git with frequent commits
+- Maintain CLAUDE.md, README.md, and ROADMAP.md (for bigger projects)
+- Use latest stable versions of all dependencies
+- Documentation is critical — keep it updated
+
+Now, here is what I want to build: [YOUR PROJECT DESCRIPTION]
 
 Features:
 - [feature 1]
@@ -232,51 +242,34 @@ Features:
 - [feature 3]
 
 Tech stack: [your preferences, or "suggest appropriate tech"]
-Use latest stable versions of all dependencies.
 
 Please enter plan mode and create an implementation plan.
-Follow the workflow described in the guide.
 ```
 
-### What This Does
+### Why This Works
 
-When Claude reads the guide, it picks up:
+When Claude reads the guide, it internalizes:
 - The full plan → review → build → simplify → review → test → commit workflow
 - The convention of using CLAUDE.md, README.md, and ROADMAP.md
 - Best practices for dependency versions and documentation
 - The phased development approach for larger projects
+- The multi-AI review process and when it happens
+
+The key points in the prompt reinforce the most important parts, so Claude doesn't just skim — it understands what you expect at every stage.
 
 This means you don't have to remember or re-explain the workflow every time — it's baked in from the first prompt.
 
-### Alternative: Reference via GitHub URL
+### Alternative: Local File Reference
 
-If you haven't cloned the repo locally, you can reference it by URL in your prompt. Claude Code can fetch it:
+If you cloned the repo locally, you can reference files directly (faster, no network fetch):
 
 ```
-Read the bootstrapping guide at https://github.com/daveremy/claude-code-guide
-for workflow context. Then help me build: [description]
+Read ~/claude-code-guide/claude-code-guide.md and
+~/claude-code-guide/claude-code-cheatsheet.md — internalize
+the workflow and follow it for this project.
+
+Now, here is what I want to build: [description] ...
 ```
-
-> **Note:** The local file reference (`~/claude-code-guide/...`) is faster and more reliable than the URL approach.
-
----
-
-## Your First Project
-
-Here's the literal sequence of commands for starting a new project:
-
-```bash
-# Step 1: Create a home for your project
-mkdir my-awesome-app
-cd my-awesome-app
-
-# Step 2: Start Claude Code
-# The --dangerously-skip-permissions flag lets Claude run commands
-# without asking permission each time. Fine for personal projects.
-claude --dangerously-skip-permissions
-```
-
-Now you're inside Claude Code. This is where the real workflow begins.
 
 ---
 

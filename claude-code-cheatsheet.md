@@ -65,56 +65,48 @@ gh auth login
 
 ---
 
-## Bootstrapping a Project from This Repo
+## Every New Project Starts Here
 
-This repo is your reference guide. Here's how to use it to kick off new projects:
+Three steps. This is all you need to remember.
 
+**Step 1: Create a directory and start Claude**
 ```bash
-# 1. Create your project directory
-mkdir my-project && cd my-project
-
-# 2. Start Claude Code, pointing it at this guide repo for context
+mkdir ~/projects/my-project && cd ~/projects/my-project
 claude --dangerously-skip-permissions
-
-# 3. Your first prompt — tell Claude to use this repo as a reference:
 ```
 
-**Paste this as your first prompt (edit the description):**
-
+**Step 2: Paste this as your first prompt** (edit the bracketed parts)
 ```
-Read the bootstrapping guide at https://github.com/daveremy/claude-code-guide
-for workflow and best practices context.
+Read the full guide and cheat sheet in this repo and internalize
+the workflow, best practices, and conventions described:
+https://github.com/daveremy/claude-code-guide
 
-I want to build: [YOUR PROJECT DESCRIPTION HERE]
+This is my development workflow — follow it for this entire project.
+Key points:
+- Always plan before coding (plan mode)
+- I will review plans with Codex and Gemini before you implement
+- After implementation, I will run /simplify and do multi-AI code reviews
+- Use git with frequent commits
+- Maintain CLAUDE.md, README.md, and ROADMAP.md (for bigger projects)
+- Use latest stable versions of all dependencies
+- Documentation is critical — keep it updated
+
+Now, here is what I want to build: [YOUR PROJECT DESCRIPTION]
 
 Features:
 - [feature 1]
 - [feature 2]
+- [feature 3]
 
 Tech stack: [your preferences, or "suggest appropriate tech"]
-Use latest stable versions of all dependencies.
 
 Please enter plan mode and create an implementation plan.
-Follow the workflow described in the guide.
 ```
 
-> **Tip:** After cloning this repo locally, you can also reference the files directly:
-> `Read the guide at ~/claude-code-guide/claude-code-guide.md for workflow context.`
+**Step 3: Follow the workflow** (see below)
 
----
-
-## Starting a Project (Quick Version)
-
-```bash
-# 1. Create and enter project directory
-mkdir my-project && cd my-project
-
-# 2. Start Claude Code (skip permission prompts for solo work)
-claude --dangerously-skip-permissions
-
-# 3. Inside Claude, your first prompt should describe the project
-#    and ask to enter plan mode (see Workflow below)
-```
+> **Tip:** If you clone this repo locally (`git clone https://github.com/daveremy/claude-code-guide.git ~/claude-code-guide`), you can reference the files directly instead of the URL:
+> `Read ~/claude-code-guide/claude-code-guide.md and ~/claude-code-guide/claude-code-cheatsheet.md — internalize the workflow and follow it for this project.`
 
 ---
 
