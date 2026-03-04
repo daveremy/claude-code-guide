@@ -100,81 +100,72 @@ ls /mnt/c/Users/YourWindowsUsername/
 
 ### Required Tools
 
-Install these before your first session. Instructions shown for both macOS and WSL/Ubuntu.
+Install these before your first session. Instructions are for **WSL/Ubuntu** (Windows users). macOS users can substitute `apt` commands with `brew install` equivalents.
 
-**1. Node.js (v18 or later)**
+**1. System essentials**
 ```bash
-# macOS:
-brew install node
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y build-essential curl wget git
+```
 
-# WSL/Ubuntu:
+**2. Node.js (v18 or later)** — needed for Codex and Gemini CLIs
+```bash
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
-# Verify (both):
+# Verify:
 node --version
 ```
 
-**2. Git**
+**3. Git configuration**
 ```bash
-# macOS:
-brew install git
-
-# WSL/Ubuntu:
-sudo apt-get install -y git
-
-# Both — configure your identity:
 git config --global user.name "Your Name"
 git config --global user.email "your@email.com"
-
-# WSL only — fix line endings:
-git config --global core.autocrlf input
+git config --global core.autocrlf input   # Prevents Windows line-ending issues
 ```
 
-**3. GitHub CLI**
+**4. GitHub CLI**
 ```bash
-# macOS:
-brew install gh
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+  | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) \
+  signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
+  https://cli.github.com/packages stable main" \
+  | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update && sudo apt install -y gh
 
-# WSL/Ubuntu (see https://github.com/cli/cli/blob/trunk/docs/install_linux.md):
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-sudo apt update && sudo apt install gh
-
-# Both — authenticate:
+# Authenticate:
 gh auth login
 # Follow the prompts
 ```
 
-**4. Claude Code**
+**5. Claude Code** — native installer (recommended, auto-updates)
 ```bash
-# Both macOS and WSL:
-npm install -g @anthropic-ai/claude-code
+curl -fsSL https://claude.ai/install.sh | bash
 # You'll need an Anthropic API key or Claude Max subscription
 ```
 
-**5. Codex CLI (for code review)**
+**6. Codex CLI (for code review)**
 ```bash
-# Both macOS and WSL:
 npm install -g @openai/codex
-# You'll need an OpenAI API key
+# You'll need an OpenAI API key or ChatGPT Plus/Pro/Team subscription
 ```
 
-**6. Gemini CLI (for code review)**
+**7. Gemini CLI (for code review)**
 ```bash
-# Both macOS and WSL:
-# Check the latest installation method at the time you read this
-# Google's Gemini CLI — you'll need a Google AI API key
+npm install -g @google/gemini-cli
+# You'll need a Google account (free tier available)
 ```
 
 ### Verify Everything Works
 
 ```bash
-node --version
 git --version
+node --version
 gh --version
 claude --version
 codex --version
+gemini --help
 ```
 
 ---

@@ -16,16 +16,50 @@ wsl --install
 
 ---
 
-## Prerequisites
+## Prerequisites (WSL/Ubuntu)
 
-| Tool | Install (macOS) | Install (WSL/Ubuntu) | What it is |
-|------|----------------|----------------------|------------|
-| **Node.js** | `brew install node` | `curl -fsSL https://deb.nodesource.com/setup_lts.x \| sudo -E bash - && sudo apt-get install -y nodejs` | Required runtime (v18+) |
-| **Git** | `brew install git` | `sudo apt-get install git` | Version control |
-| **GitHub CLI** | `brew install gh` | `sudo apt-get install gh` (or see [gh install docs](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)) | Repos, PRs, issues from terminal |
-| **Claude Code** | `npm install -g @anthropic-ai/claude-code` | Same | AI coding agent — Claude Opus/Sonnet |
-| **Codex CLI** | `npm install -g @openai/codex` | Same | OpenAI's agent — for code review |
-| **Gemini CLI** | Check latest install method | Same | Google's AI CLI — for code review |
+> **macOS users**: Replace `apt` commands with `brew install` equivalents. See the [full guide](claude-code-guide.md) for macOS-specific commands.
+
+```bash
+# Update system packages first
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y build-essential curl wget git
+
+# Install Node.js (v18+) — needed for Codex and Gemini CLIs
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Install GitHub CLI
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+  | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) \
+  signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
+  https://cli.github.com/packages stable main" \
+  | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update && sudo apt install -y gh
+
+# Install Claude Code (native installer — recommended, auto-updates)
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Install Codex CLI and Gemini CLI
+npm install -g @openai/codex
+npm install -g @google/gemini-cli
+
+# Configure git
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+git config --global core.autocrlf input   # WSL line-ending fix
+
+# Authenticate GitHub
+gh auth login
+```
+
+| Tool | What it is | Account / API Key Needed |
+|------|------------|--------------------------|
+| **Claude Code** | AI coding agent — Claude Opus/Sonnet | Anthropic API key or Claude Max subscription |
+| **Codex CLI** | OpenAI's coding agent — for code review | OpenAI API key or ChatGPT Plus/Pro/Team subscription |
+| **Gemini CLI** | Google's AI CLI — for code review | Google account (free tier available) |
+| **GitHub CLI** | Manage repos, PRs, issues from terminal | GitHub account (via `gh auth login`) |
 
 > **Model knowledge cutoff**: Claude, Codex, and Gemini all have training data cutoff dates. They may not know the latest library versions or APIs. Always specify "use the latest stable version" for dependencies.
 
